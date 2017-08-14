@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>兼容IE8及其主流浏览器获取style样式</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		div{
+			width:200px;
+			height:200px;
+			background-color:red;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<button id="btn">获取样式</button>
+	<script>
+		/*
+		 * 简单的一个小轮子，实现功能是兼容IE和主流浏览器获取style的样式值；
+		 * 简单好玩，体验封装小函数的快乐！ 
+		*/
+		var btn = document.getElementById("btn");
+		btn.onclick = function(){
+			alert(getStyle("box","width"));
+		}
+		function getStyle(obj,styleName){
+			var obj = document.getElementById(obj);
+			if(window.getComputedStyle){
+				return getComputedStyle(obj,null)[styleName];
+			}else{
+				return obj.currentStyle[styleNam];
+			}
+		}
+		
+
+	</script>
+</body>
+</html>
