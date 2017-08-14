@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<button id="btn">按我一下下</button>
+	<script>
+		/*
+		 *封装简易版二级DOM绑定事件
+		*/
+		function bindEvent(obj,eventStr,callback){
+			var obj = document.getElementById(obj);
+			if(obj.addEventListener){
+				obj.addEventListener(eventStr,callback,false);
+			}else{
+				obj.attachEvent("on" + eventStr,function(){
+					callback.call(obj);
+				})
+			}
+		}
+		bindEvent("btn","click",function(){
+			alert("1");
+		})
+	</script>
+</body>
+</html>
