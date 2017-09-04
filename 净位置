@@ -1,0 +1,37 @@
+function getAllOffset(o){
+			//计算小明的净位置
+			var o = document.getElementById("xiaoming");
+			//初始值
+			var result = {
+				"top" : o.offsetTop,
+				"left" : o.offsetLeft
+			}
+			//判断浏览器是不是IE8
+			var isIE8 = window.navigator.userAgent.indexOf("MSIE 8.0") != -1;
+			//迭代
+			while(o = o.offsetParent){
+				//计算后的边框，能力检测
+				if(window.getComputedStyle){
+					var borderTop = parseInt(getComputedStyle(o)["border-top-width"]);
+					var borderLeft = parseInt(getComputedStyle(o)["border-left-width"]);
+				}else{
+					var borderTop = parseInt(o.currentStyle["borderTopWidth"]);
+					var borderLeft = parseInt(o.currentStyle["borderLeftWidth"]);
+				}
+				//验证一下，万一borderTop是undefined或者NaN，此时修正为0
+				if(isNaN(borderTop)){
+					borderTop = 0;
+				}
+				if(isNaN(borderLeft)){
+					borderLeft = 0;
+				}
+				//如果浏览器版本不是IE8那么就加上边框。如果是IE8就不需要加边框了。
+				!isIE8 && (result.top += borderTop);
+				!isIE8 && (result.left += borderLeft);
+				//加上这个元素的offsetTop值
+				result.top += o.offsetTop;
+				result.left += o.offsetLeft;
+			}
+
+			return result;
+		}
